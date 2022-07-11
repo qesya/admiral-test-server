@@ -35,7 +35,7 @@ const createApolloServer = async () => {
 	});
 	apolloServer.applyMiddleware({ app, path: '/graphql' });
 
-	return apolloServer;
+	return apolloServer.createHandler();
 };
 
-export const handler = await createApolloServer();
+export const handler = createApolloServer();
