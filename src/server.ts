@@ -2,10 +2,10 @@ import http from 'http';
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import { ApolloServer } from 'apollo-server-express';
+import { ApolloServer } from 'apollo-server-lambda';
 import { mergeResolvers, mergeTypeDefs } from '@graphql-tools/merge';
 import { makeExecutableSchema } from '@graphql-tools/schema';
-import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
+import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-lambda';
 import 'dotenv/config';
 
 import { defs, resolvers } from './graphql';
@@ -20,9 +20,6 @@ app.use(
 	})
 ); 
 const httpServer = http.createServer(app);
-
-console.log(uri);
-console.log(port);
 
 const loadTypeDefs = Object.values(defs).map((x) => x);
 const loadResolvers = Object.values(resolvers).map((x) => x);
