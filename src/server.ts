@@ -1,11 +1,11 @@
-import http from 'http';
-import express from 'express';
-import mongoose from 'mongoose';
-import cors from 'cors';
+import * as http from 'http';
+import * as express from 'express';
+import * as mongoose from 'mongoose';
+import * as cors from 'cors';
 import { ApolloServer } from 'apollo-server-lambda';
 import { mergeResolvers, mergeTypeDefs } from '@graphql-tools/merge';
 import { makeExecutableSchema } from '@graphql-tools/schema';
-import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-lambda';
+import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
 import 'dotenv/config';
 
 import { defs, resolvers } from './graphql';
@@ -18,7 +18,7 @@ app.use(
 	cors({
 		origin: '*',
 	})
-); 
+);
 const httpServer = http.createServer(app);
 
 const loadTypeDefs = Object.values(defs).map((x) => x);
