@@ -38,4 +38,4 @@ const createApolloServer = async () => {
 	return apolloServer;
 };
 
-export const handler = createApolloServer();
+export const handler = await createApolloServer();
