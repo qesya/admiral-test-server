@@ -25,6 +25,7 @@ const loadTypeDefs = Object.values(defs).map((x) => x);
 const loadResolvers = Object.values(resolvers).map((x) => x);
 
 const createApolloServer = async () => {
+	await mongoose.connect(uri);
 	const apolloServer = new ApolloServer({
 		schema: makeExecutableSchema({
 			typeDefs: mergeTypeDefs(loadTypeDefs),
@@ -32,14 +33,9 @@ const createApolloServer = async () => {
 		}),
 		plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
 	});
-	await apolloServer.start();
 	apolloServer.applyMiddleware({ app, path: '/graphql' });
 
-	await mongoose.connect(uri);
-
-	httpServer.listen(port, () => {
-		console.log(`🚀 Graphql is ready at http://localhost:${port}/graphql`);
-	});
+	return apolloServer;
 };
 
-createApolloServer();
+export const handler = createApolloServer();
